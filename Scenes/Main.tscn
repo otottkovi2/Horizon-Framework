@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://dts3doggi8hjt"]
+
+[ext_resource type="PackedScene" uid="uid://dk6vqqisq43et" path="res://Objects/Car.tscn" id="1_23mgw"]
+[ext_resource type="Material" uid="uid://ohgcymfldf4n" path="res://Materials/ground.tres" id="1_lrc7n"]
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_mxaqp"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_ye7fm"]
+orientation = 1
+
+[node name="Node3D" type="Node3D"]
+
+[node name="ground" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground"]
+transform = Transform3D(500, 0, 0, 0, 500, 0, 0, 0, 500, 0, 0, 0)
+shape = SubResource("HeightMapShape3D_mxaqp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ground/CollisionShape3D"]
+mesh = SubResource("QuadMesh_ye7fm")
+surface_material_override/0 = ExtResource("1_lrc7n")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.0783892, 0.360279, -0.929545, -0.00665257, 0.932583, 0.360895, 0.996901, -0.0221064, 0.0755012, -8.80552, 4.224, -0.747765)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.727629, 0.685971, 0, -0.685971, 0.727629, -61.609, 438.971, 338.592)
+light_energy = 0.192
+shadow_enabled = true
+
+[node name="Car" parent="." instance=ExtResource("1_23mgw")]

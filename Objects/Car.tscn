@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk6vqqisq43et"]
+
+[ext_resource type="PackedScene" uid="uid://ceabb0cgh1vdq" path="res://Objects/Wheel.tscn" id="1_bch2w"]
+[ext_resource type="Material" uid="uid://dx172saogad3f" path="res://Scenes/car_body.tres" id="1_w0bhg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gy6ln"]
+size = Vector3(1.57898, 1.36285, 3.02246)
+
+[sub_resource type="BoxMesh" id="BoxMesh_amyxq"]
+
+[node name="Car" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mass = 1000.0
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_gy6ln")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+transform = Transform3D(1.605, 0, 0, 0, 1.4, 0, 0, 0, 3.045, 0, 0, 0)
+mesh = SubResource("BoxMesh_amyxq")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("1_w0bhg")
+
+[node name="Wheel_FL" parent="RigidBody3D/CollisionShape3D/MeshInstance3D" instance=ExtResource("1_bch2w")]
+transform = Transform3D(0.623053, 0, 0, 0, 0.714286, 0, 0, 0, 0.328407, 0.487779, -0.453406, 0.322146)
+
+[node name="Wheel2_RL" parent="RigidBody3D/CollisionShape3D/MeshInstance3D" instance=ExtResource("1_bch2w")]
+transform = Transform3D(0.623053, 0, 0, 0, 0.714286, 0, 0, 0, 0.328407, 0.487779, -0.453406, -0.32164)
+
+[node name="Wheel3_FR" parent="RigidBody3D/CollisionShape3D/MeshInstance3D" instance=ExtResource("1_bch2w")]
+transform = Transform3D(-0.623053, 0, -2.87103e-08, 0, 0.714286, 0, 5.4469e-08, 0, -0.328407, -0.488, -0.453, 0.322)
+
+[node name="Wheel4_RR" parent="RigidBody3D/CollisionShape3D/MeshInstance3D" instance=ExtResource("1_bch2w")]
+transform = Transform3D(-0.623053, 0, -2.87103e-08, 0, 0.714286, 0, 5.4469e-08, 0, -0.328407, -0.488, -0.453, -0.322)
