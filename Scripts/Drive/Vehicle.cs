@@ -1,21 +1,32 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Godot.Collections;
 
 namespace Horizon.Drive
 {
     public partial class Vehicle : Node
     {
-        [Export] private Array<Node> processorNodes;
-        private IForceProcessor[] processors;
+        private List<IForceProcessor> processors = new();
+        private IForceInput input;
+        private List<IWheel> wheels  = new();
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            processors = new IForceProcessor[processors.Length];
-            for (var i = 0; i < processorNodes.Count; i++) processors[i] = processorNodes[i] as IForceProcessor;
+            input = GetChild<IForceInput>(0);
+            var child = ((input as Node)!).GetChild<IForceProcessor>(0);
+            while (child is not null)
+            {
+                processors.Add(child);
+                child = ((child as Node)!).GetChild<IForceProcessor>(0);
+            }
+
+            var children = GetChildren();
+            for (var i = 0; i < children.Count; i++)
+            {
+                if(children[i] is IWheel) wheels.Add(children[i] as IWheel);
+            }
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.

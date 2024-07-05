@@ -10,5 +10,10 @@ namespace Horizon.Drive
             this.speed = speed;
             this.torque = torque;
         }
+
+        public override string ToString()
+        {
+            return $"(RPM: {speed}, torque: {torque})";
+        }
     }
 }
