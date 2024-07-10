@@ -14,7 +14,7 @@ namespace Horizon.Drive
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            input = GetChild<IForceInput>(0);
+            input = GetChild<IForceInput>(1);
             var child = ((input as Node)!).GetChild<IForceProcessor>(0);
             while (child is not null)
             {
