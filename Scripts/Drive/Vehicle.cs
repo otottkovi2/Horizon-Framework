@@ -16,6 +16,7 @@ namespace Horizon.Drive
         {
             input = GetChild<IForceInput>(1);
             var child = ((input as Node)!).GetChild<IForceProcessor>(0);
+            GD.Print("Hello");
             while (child is not null)
             {
                 processors.Add(child);

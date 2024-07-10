@@ -2,6 +2,9 @@ namespace Horizon.Drive
 {
     public class RotForc
     {
+        public static readonly RotForc Zero = new (0, 0);
+
+
         public float speed;
         public float torque;
 

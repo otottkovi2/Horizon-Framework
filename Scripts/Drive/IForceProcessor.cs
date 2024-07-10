@@ -1,4 +1,6 @@
-﻿namespace Horizon.Drive
+﻿using Godot;
+
+namespace Horizon.Drive
 {
     public interface IForceProcessor
     {

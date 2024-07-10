@@ -20,7 +20,7 @@ namespace Horizon.Drive.Processors
         private float[] rpmValues;
         private float[] torqueValues;
 
-        private const int RpmIncreaseRate = 10;
+        private const int RpmIncreaseRate = 100;
 
         public void Process(RotForc currentForc)
         {
@@ -41,7 +41,7 @@ namespace Horizon.Drive.Processors
             else if (currentRpm > redline) currentRpm = redline;
             currentForc.speed = currentRpm;
             currentForc.torque = torque;
-            GD.Print("Current forc: " + currentForc);
+            GD.Print("Current forc in the engine: " + currentForc);
             (this as IForceProcessor).PassToNext(currentForc);
         }
 
@@ -58,8 +58,10 @@ namespace Horizon.Drive.Processors
                 189
             };
             NextProcessor = GetChild<IForceProcessor>(0);
-            if (NextProcessor is null) GD.PrintErr("This IForceProcessor has no processor after it. If this is the" +
-                                                  " last processing step, please implement IForceOutput as well.");
+            if (NextProcessor is null)
+                GD.PushWarning(
+                    "No next processor found. Make sure to place the next force processor as this object's child." +
+                    " If this is the last processor, implement IForceOutput.");
         }
 
     }
