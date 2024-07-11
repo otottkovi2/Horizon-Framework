@@ -9,7 +9,7 @@ namespace Horizon.Drive
 
         public void PassToNext(RotForc forcToPass)
         {
-            NextProcessor.Process(forcToPass);
+            NextProcessor?.Process(forcToPass);
         }
     }
 }

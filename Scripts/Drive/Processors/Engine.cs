@@ -8,7 +8,6 @@ namespace Horizon.Drive.Processors
 {
     public partial class Engine : Node, IForceProcessor
     {
-        [Export] private int power = 150;
         [Export] private int redline = 6600;
 
         public IForceProcessor NextProcessor { get; private set; }
@@ -20,7 +19,7 @@ namespace Horizon.Drive.Processors
         private float[] rpmValues;
         private float[] torqueValues;
 
-        private const int RpmIncreaseRate = 100;
+        private const int RpmIncreaseRate = 200;
 
         public void Process(RotForc currentForc)
         {
@@ -28,7 +27,7 @@ namespace Horizon.Drive.Processors
             throttlePercent = currentForc.torque;
             currentRpm += RpmIncreaseRate * throttlePercent;
             float torque = 0;
-            if (currentRpm > 0 && currentRpm < redline)
+            if (currentRpm > 0)
             {
                 for (var i = 0; i < rpmValues.Length; i++)
                 {
@@ -38,7 +37,6 @@ namespace Horizon.Drive.Processors
                     break;
                 }
             }
-            else if (currentRpm > redline) currentRpm = redline;
             currentForc.speed = currentRpm;
             currentForc.torque = torque;
             GD.Print("Current forc in the engine: " + currentForc);
@@ -64,5 +62,10 @@ namespace Horizon.Drive.Processors
                     " If this is the last processor, implement IForceOutput.");
         }
 
+        public override void _PhysicsProcess(double delta)
+        {
+            currentRpm -= RpmIncreaseRate/1.3f;
+            currentRpm = Mathf.Clamp(currentRpm, 0,redline);
+        }
     }
 }

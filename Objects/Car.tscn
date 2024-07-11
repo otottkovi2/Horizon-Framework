@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dk6vqqisq43et"]
+[gd_scene load_steps=10 format=3 uid="uid://dk6vqqisq43et"]
 
 [ext_resource type="PackedScene" uid="uid://ceabb0cgh1vdq" path="res://Objects/Wheel.tscn" id="1_bch2w"]
 [ext_resource type="Script" path="res://Scripts/Drive/Vehicle.cs" id="1_ukqd1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Drive/Inputs/Accelerator.cs" id="4_x8rnh"]
 [ext_resource type="Script" path="res://Scripts/Drive/Processors/Engine.cs" id="5_houho"]
 [ext_resource type="Script" path="res://Scripts/Drive/Processors/Clutch.cs" id="6_i8v0h"]
+[ext_resource type="Script" path="res://Scripts/Drive/Processors/Transmission.cs" id="7_dl2ij"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gy6ln"]
 size = Vector3(1.57898, 1.36285, 3.02246)
@@ -49,3 +50,6 @@ script = ExtResource("5_houho")
 
 [node name="Clutch" type="Node" parent="Accelerator/Engine"]
 script = ExtResource("6_i8v0h")
+
+[node name="Transmission" type="Node" parent="Accelerator/Engine/Clutch"]
+script = ExtResource("7_dl2ij")
