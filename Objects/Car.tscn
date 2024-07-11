@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dk6vqqisq43et"]
+[gd_scene load_steps=11 format=3 uid="uid://dk6vqqisq43et"]
 
 [ext_resource type="PackedScene" uid="uid://ceabb0cgh1vdq" path="res://Objects/Wheel.tscn" id="1_bch2w"]
 [ext_resource type="Script" path="res://Scripts/Drive/Vehicle.cs" id="1_ukqd1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scripts/Drive/Processors/Engine.cs" id="5_houho"]
 [ext_resource type="Script" path="res://Scripts/Drive/Processors/Clutch.cs" id="6_i8v0h"]
 [ext_resource type="Script" path="res://Scripts/Drive/Processors/Transmission.cs" id="7_dl2ij"]
+[ext_resource type="Script" path="res://Scripts/Drive/Processors/Differential.cs" id="8_2ypy2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gy6ln"]
 size = Vector3(1.57898, 1.36285, 3.02246)
@@ -23,6 +24,7 @@ freeze = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("BoxShape3D_gy6ln")
+disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
 transform = Transform3D(1.605, 0, 0, 0, 1.4, 0, 0, 0, 3.045, 0, 0, 0)
@@ -53,3 +55,8 @@ script = ExtResource("6_i8v0h")
 
 [node name="Transmission" type="Node" parent="Accelerator/Engine/Clutch"]
 script = ExtResource("7_dl2ij")
+
+[node name="Differential" type="Node" parent="Accelerator/Engine/Clutch/Transmission" node_paths=PackedStringArray("wheelObjects")]
+script = ExtResource("8_2ypy2")
+wheelObjects = [NodePath("../../../../../RigidBody3D/CollisionShape3D/MeshInstance3D/Wheel3_FR"), NodePath("../../../../../RigidBody3D/CollisionShape3D/MeshInstance3D/Wheel4_RR")]
+gearRatio = 3.94

@@ -1,4 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceabb0cgh1vdq"]
+[gd_scene load_steps=5 format=3 uid="uid://ceabb0cgh1vdq"]
+
+[ext_resource type="Script" path="res://Scripts/Drive/Wheels/TestWheel.cs" id="1_lvvea"]
+[ext_resource type="Material" uid="uid://b0s5rr60chsvc" path="res://Materials/wheel.tres" id="2_od0lw"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_yq243"]
 height = 0.145499
@@ -7,10 +10,12 @@ radius = 0.247842
 [sub_resource type="CylinderMesh" id="CylinderMesh_qmjos"]
 
 [node name="Wheel" type="Node3D"]
+script = ExtResource("1_lvvea")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mass = 10.0
+gravity_scale = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("CylinderShape3D_yq243")
@@ -18,3 +23,4 @@ shape = SubResource("CylinderShape3D_yq243")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.07, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("CylinderMesh_qmjos")
+surface_material_override/0 = ExtResource("2_od0lw")
